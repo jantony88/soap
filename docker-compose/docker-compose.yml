@@ -1,0 +1,19 @@
+services:
+  # PostgreSQL para clientes
+  postgres_clients:
+    container_name: postgres_clients_container
+    image: postgres:14-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-clients-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=db_clients
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=S3cret
+volumes:
+  postgres-clients-data:
+
+networks:
+  default:
+    driver: bridge

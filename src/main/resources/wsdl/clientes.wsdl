@@ -1,0 +1,73 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://kawsaytech.com/soap/entity"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://kawsaytech.com/soap/entity"
+             name="ClienteService">
+
+    <types>
+        <xsd:schema targetNamespace="http://kawsaytech.com/soap/entity">
+            <xsd:element name="getClienteRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="identificacion" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getClienteResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="cliente">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="identificacion" type="xsd:string"/>
+                                    <xsd:element name="datos" type="xsd:string"/>
+                                    <xsd:element name="nombre" type="xsd:string"/>
+                                    <xsd:element name="apellido" type="xsd:string"/>
+                                    <xsd:element name="direccion" type="xsd:string"/>
+                                    <xsd:element name="telefono" type="xsd:string"/>
+                                    <xsd:element name="estado" type="xsd:boolean"/>
+                                    <xsd:element name="message" type="xsd:string"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+
+    <message name="getClienteRequestMessage">
+        <part name="parameters" element="tns:getClienteRequest"/>
+    </message>
+
+    <message name="getClienteResponseMessage">
+        <part name="parameters" element="tns:getClienteResponse"/>
+    </message>
+
+    <portType name="ClientePortType">
+        <operation name="getCliente">
+            <input message="tns:getClienteRequestMessage"/>
+            <output message="tns:getClienteResponseMessage"/>
+        </operation>
+    </portType>
+
+    <binding name="ClienteBinding" type="tns:ClientePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="getCliente">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="ClienteService">
+        <port name="ClientePort" binding="tns:ClienteBinding">
+            <soap:address location="http://localhost:8083/ws/clientes"/>
+        </port>
+    </service>
+</definitions>
